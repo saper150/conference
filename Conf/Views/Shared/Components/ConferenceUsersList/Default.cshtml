@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ConferenceUserViewModel>
+@{ }
+
+<table class="table conference-list">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.City
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit",null, new { id = item.Id })">
+                        <i class="far fa-edit"></i>
+                    </a>
+                    <a href="#"
+                       data-href="@Url.Action("Delete",null , new { id = item.Id })"
+                       data-toggle="modal"
+                       data-target="#confirm-delete">
+                        <i class="far fa-trash-alt"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@await Component.InvokeAsync(nameof(ConfirmDeleteModal))
